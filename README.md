@@ -38,6 +38,7 @@
 <img src="/img/JDBC体系架构图.png" alt="JDBC体系架构图">
 <!-- ![JDBC体系架构图](https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png) -->
 </p>
+![JDBC体系架构图"](/img/JDBC体系架构图.png "JDBC体系架构图"")
 
 1. JDBC API层。负责与Java Web进行通信。
 2. JDBC Driver API数据库驱动层。负责与数据库建立连接。一般来说，下层的Driver都是由数据库厂商来提供的，负责和实现与自己提供的数据库的通信。
