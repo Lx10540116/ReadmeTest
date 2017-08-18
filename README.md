@@ -15,6 +15,8 @@
 	* [1.4 JDBC安装](#14-jdbc安装)
 	* [1.5 JDBC API](#15-jdbc-api)
 	* [1.6 JDBC URL](#16-jdbc-url)
+		* [1.6.1 介绍](#161-介绍)
+		* [1.6.2 常用JDBC URL](#162-常用jdbc-url)
 	* []()
 * [2. 数据库连接池](#2-数据库连接池)
 * [3. SQL注入与防范](#3-sql注入与防范)
@@ -57,6 +59,7 @@ Driver & DriverManager
 * DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
 
 ### 1.6 JDBC URL
+#### 1.6.1 介绍
 JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
 1. 协议：这是固定和统一的，为jdbc；
 2. 子协议：getConnection方法就是通过URL中子协议部分确定调用对应的驱动程序，来建立到后端数据库的物理链接。以MySQL数据库为例，就是mysql；
@@ -71,6 +74,20 @@ jdbc:mysql://10.164.172.20:3306/cloud_study
 	* 主机IP：10.164.172.20
 	* 端口：3306
 	* 数据库：cloud_study
+	
+#### 1.6.2 常用JDBC URL
+1. MySQL
+```Java
+jdbc:mysql://<ip>:<port>/database
+```
+2. ORACLE
+```Java
+jdbc:oracle:thin@<ip>:<port>/database
+```
+3. SQL Server
+```Java
+jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
+```
 
 ## 2. 数据库连接池
 
