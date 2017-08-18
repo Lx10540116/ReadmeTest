@@ -101,7 +101,7 @@ ResultSet对象的内部存在一个指针，用来指向当前的一个行记�
 * .getObject(ColumnName/Index)
 每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
 
-#### 15.5.5 SQLException
+#### 1.5.5 SQLException
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
 
 ### 1.6 JDBC URL
