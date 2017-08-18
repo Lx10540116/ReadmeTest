@@ -73,7 +73,7 @@
 * DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
 
 #### 1.5.2 Connection
-Connection代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Connection代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
 * 常用方法
 ```Java
 Statment stmt = conn.createStatement();
@@ -99,14 +99,15 @@ ResultSet对象的内部存在一个指针，用来指向当前的一个行记�
 * .getString(ColumnName/Index)
 * .getInt(ColumnName/Index)
 * .getObject(ColumnName/Index)
-每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
 
 #### 1.5.5 SQLException
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
 
 ### 1.6 JDBC URL
 #### 1.6.1 介绍
-JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
 1. 协议：这是固定和统一的，为jdbc；
 2. 子协议：getConnection方法就是通过URL中子协议部分确定调用对应的驱动程序，来建立到后端数据库的物理链接。以MySQL数据库为例，就是mysql；
 3. 子名称：由三个部分组成：主机、端口、数据库
