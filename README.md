@@ -49,6 +49,16 @@
 1. 数据库官网下载。从数据库官网下载JDBC驱动，下载下来的是一个JAR包，然后加入到Java Web项目中。
 2. Maven管理。通过Maven配置JDBC驱动。
 
+### 1.5 JDBC API
+Driver & DriverManager
+* Driver是一个接口，定义了各个驱动程序都必须实现的功能，是驱动程序的抽象。通过操作Driver接口即可以实现对各个驱动程序的操作。
+* DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
+
+### 1.6 JDBC URL
+```Java
+	jdbc:mysql://10.164.172.20:3306/cloud_study
+```
+
 ## 2. 数据库连接池
 
 
