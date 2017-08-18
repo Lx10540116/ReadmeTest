@@ -23,11 +23,11 @@
 	* [1.3 JDBC体系架构](#13-jdbc体系架构)
 	* [1.4 JDBC安装](#14-jdbc安装)
 	* [1.5 JDBC API](#15-jdbc-api)
-		* [1.5.1 Driver & DriverManager](#151-driver-&-drivermanager)
+		* [1.5.1 Driver & DriverManager](#151-driver--drivermanager)
 		* [1.5.2 Connection](#152-connection)
 		* [1.5.3 Statement](#153-statement)
 		* [1.5.4 ResultSet](#154-resultset)
-		* [1.5.5 SQLException](#154-sqlexception)
+		* [1.5.5 SQLException](#155-sqlexception)
 	* [1.6 JDBC URL](#16-jdbc-url)
 		* [1.6.1 介绍](#161-介绍)
 		* [1.6.2 常用JDBC URL](#162-常用jdbc-url)
@@ -94,6 +94,7 @@ ResultSet对象的内部存在一个指针，用来指向当前的一个行记�
 * .absolute()	将指针指向某一行
 * .beforeFirst()将指针指向第一行的最开始部分。通过调用.beforeFirst().next()获取第一行记录
 * .afterLast()	将指针指向最后一条记录的下一条记录
+
 获取列结果：
 * .getString(ColumnName/Index)
 * .getInt(ColumnName/Index)
