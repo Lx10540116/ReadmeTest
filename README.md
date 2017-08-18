@@ -1,12 +1,21 @@
 # ReadmeTest
 这是一个学习ReadMe文件写法的项目
 
+# HelloMySQL
+网易云课堂java web微专业数据库开发
+
+## 云课堂昵称
+偶是小菜鸟
+
+============================
+
 ## 总体说明
 > 本项目为网易云课堂java web微专业数据库开发的课件部分.
 
 本项目一共包含五个部分，分别为JDBC、数据库连接池、SQL注入与防范、事务以及MyBatis.
 
-## 目录
+目录
+=================
 
 * [1. JDBC](#1-jdbc)
 	* [1.1 JDBC重要意义](#11-jdbc重要意义)
@@ -14,11 +23,16 @@
 	* [1.3 JDBC体系架构](#13-jdbc体系架构)
 	* [1.4 JDBC安装](#14-jdbc安装)
 	* [1.5 JDBC API](#15-jdbc-api)
+		* [1.5.1 Driver & DriverManager](#151-driver-&-drivermanager)
+		* [1.5.2 Connection](#152-connection)
+		* [1.5.3 Statement](#153-statement)
+		* [1.5.4 ResultSet](#154-resultset)
+		* [1.5.5 SQLException](#154-sqlexception)
 	* [1.6 JDBC URL](#16-jdbc-url)
 		* [1.6.1 介绍](#161-介绍)
 		* [1.6.2 常用JDBC URL](#162-常用jdbc-url)
-	* []()
 * [2. 数据库连接池](#2-数据库连接池)
+	* []()
 * [3. SQL注入与防范](#3-sql注入与防范)
 * [4. 事务](#4-事务)
 * [5. MyBatis](#5-mybatis)
@@ -38,12 +52,8 @@
 
 ### 1.3 JDBC体系架构
 <p align="center">
-<!-- <img src="https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png" alt="JDBC体系架构图"> -->
-<img src="/img/JDBC体系架构.png" alt="JDBC体系架构图">
-<!-- ![JDBC体系架构图](https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png) -->
+<img src="/img/JDBC/JDBC体系架构.png" alt="JDBC体系架构图">
 </p>
-
-![JDBC体系架构图](/img/JDBC体系架构.png "JDBC体系架构图")
 
 1. JDBC API层。负责与Java Web进行通信。
 2. JDBC Driver API数据库驱动层。负责与数据库建立连接。一般来说，下层的Driver都是由数据库厂商来提供的，负责和实现与自己提供的数据库的通信。
@@ -54,9 +64,44 @@
 2. Maven管理。通过Maven配置JDBC驱动。
 
 ### 1.5 JDBC API
-Driver & DriverManager
+<p align="center">
+<img src="/img/JDBC/JDBC-API.png" alt="JDBC API">
+</p>
+
+#### 1.5.1 Driver & DriverManager
 * Driver是一个接口，定义了各个驱动程序都必须实现的功能，是驱动程序的抽象。通过操作Driver接口即可以实现对各个驱动程序的操作。
 * DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
+
+#### 1.5.2 Connection
+Connection代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
+* 常用方法
+```Java
+Statment stmt = conn.createStatement();
+```
+
+#### 1.5.3 Statement
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。容器可以承载放入的一些SQL语句：通过Statement的executeQuery方法可以执行一个数据库查询，得到数据库查询结果的一个集合，集合是以一个ResultSet对象来表示；也可以通过Statement对象执行更新、删除语句，这时候调用execute和executeUpdate方法，它返回的是一个int值的对象，它代表的是执行的语句影响了多少条数据库记录。
+```Java
+ResultSet rs = stmt.executeQuery("select userName form user");
+```
+
+#### 1.5.4 ResultSet
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ResultSet代表了一个SQL的查询结果。关系型数据库的本质是一个二元表，所以ResultSet对象实际也是一个由行和列所组成的二元表。
+ResultSet对象的内部存在一个指针，用来指向当前的一个行记录，默认该指针指向第一行记录。
+移动指针的方法：
+* .next()		将指针指向下一行
+* .previous()	将指针指向上一行
+* .absolute()	将指针指向某一行
+* .beforeFirst()将指针指向第一行的最开始部分。通过调用.beforeFirst().next()获取第一行记录
+* .afterLast()	将指针指向最后一条记录的下一条记录
+获取列结果：
+* .getString(ColumnName/Index)
+* .getInt(ColumnName/Index)
+* .getObject(ColumnName/Index)
+每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
+
+#### 15.5.5 SQLException
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
 
 ### 1.6 JDBC URL
 #### 1.6.1 介绍
