@@ -34,7 +34,8 @@
 
 ### 1.3 JDBC体系架构
 <p align="center">
-<img src="https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png" alt="JDBC体系架构图">
+<!-- <img src="https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png" alt="JDBC体系架构图"> -->
+<img src="/img/JDBC体系架构图.png" alt="JDBC体系架构图">
 <!-- ![JDBC体系架构图](https://raw.githubusercontent.com/Lx10540116/HelloMySQL/master/img/JDBC/JDBC%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png) -->
 </p>
 
