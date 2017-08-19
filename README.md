@@ -87,6 +87,7 @@ Statement对象是一个SQL的容器，容器中可以执行诸如insert、delet
 容器可以承载放入的一些SQL语句：
 1. 通过Statement的executeQuery方法可以执行一个数据库查询，得到数据库查询结果的一个集合，集合是以一个ResultSet对象来表示；
 2. 通过Statement对象执行更新、删除语句，这时候调用execute和executeUpdate方法，它返回的是一个int值的对象，它代表的是执行的语句影响了多少条数据库记录。
+* 常用方法
 ```Java
 ResultSet rs = stmt.executeQuery("select userName form user");
 ```
