@@ -127,6 +127,12 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 <pre>
 jdbc:mysql://10.164.172.20:3306/<font color=red>cloud_study</font>
 </pre>
+<font face="黑体">我是黑体字</font>
+<font face="微软雅黑">我是微软雅黑</font>
+<font face="STCAIYUN">我是华文彩云</font>
+<font color=#0099ff size=12 face="黑体">黑体</font>
+<font color=#00ffff size=3>null</font>
+<font color=gray size=5>gray</font>
 * 协议：jdbc
 * 子协议：mysql
 * 子名称：10.164.172.20:3306/cloud_study
