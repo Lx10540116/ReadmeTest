@@ -123,7 +123,7 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 2. 子协议：getConnection方法就是通过URL中子协议部分确定调用对应的驱动程序，来建立到后端数据库的物理链接。以MySQL数据库为例，就是mysql；
 3. 子名称：由三个部分组成：主机、端口、数据库.
 
-以下是一个JDBC URL（后文例子中称之为<a href="#"><strong>DB_URL</strong></a>）的示例：
+以下是一个JDBC URL（后文例子中称之为<a href="#readme"><strong>DB_URL</strong></a>）的示例：
 ```Java
 jdbc:mysql://10.164.172.20:3306/cloud_study
 ```
