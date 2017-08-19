@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="github.css">
 # ReadmeTest
 这是一个学习ReadMe文件写法的项目
 
@@ -124,9 +125,9 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 3. 子名称：由三个部分组成：主机、端口、数据库.
 
 以下是一个JDBC URL（后文例子中称之为<a href="#readme-jdbc"><strong>DB_URL</strong></a>）的示例：
-
-jdbc:mysql://10.164.172.20:3306/`cloud_study`
-
+<pre>
+jdbc:mysql://10.164.172.20:3306/<font color=red>cloud_study</font>
+</pre>
 * 协议：jdbc
 * 子协议：mysql
 * 子名称：10.164.172.20:3306/cloud_study
