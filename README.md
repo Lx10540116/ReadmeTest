@@ -125,7 +125,7 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 
 以下是一个JDBC URL（后文例子中称之为<a href="#readme-jdbc"><strong>DB_URL</strong></a>）的示例：
 ```Java
-jdbc:mysql://10.164.172.20:3306/cloud_study
+jdbc:mysql://10.164.172.20:3306/<span>cloud_study</span>
 ```
 * 协议：jdbc
 * 子协议：mysql
