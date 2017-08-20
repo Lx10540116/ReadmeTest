@@ -212,7 +212,9 @@ show variables like '%character%';
 编码级别优先顺序：Server < Database < Table < Column
 `
 3. JDBC设置
+
 `DB_URL` = `DB_URL` + `characterEncoding=utf8`
+
 注：为了保证中文不出错，无论是数据库的还是JDBC的，建议设置为`utf8`
 
 ## 2. 数据库连接池
