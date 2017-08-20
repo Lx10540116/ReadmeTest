@@ -42,11 +42,11 @@
 ## 1. JDBC
 
 ### 1.1 JDBC重要意义
-应用程序通过调用统一接口可以访问任意数据库。JDBC屏蔽了客户端与服务器端交互协议的实现细节，只要能熟练的使用JDBC提供的标准接口，无需关心底层数据库的实现方式。
+&emsp;&emsp;应用程序通过调用统一接口可以访问任意数据库。JDBC屏蔽了客户端与服务器端交互协议的实现细节，只要能熟练的使用JDBC提供的标准接口，无需关心底层数据库的实现方式。
 
-对于Java应用程序，JDBC就是一个普通的架包，在应用程序中引用架包提供的类和方法，通过操作Java对象的方式，就可以获取数据库中的数据。
+&emsp;&emsp;对于Java应用程序，JDBC就是一个普通的架包，在应用程序中引用架包提供的类和方法，通过操作Java对象的方式，就可以获取数据库中的数据。
 
-对数据库厂商来说，JDBC就是一套接口规范，每个数据库厂商都必须实现JDBC定义的接口，确保用户通过JDBC正确的访问数据库。
+&emsp;&emsp;对数据库厂商来说，JDBC就是一套接口规范，每个数据库厂商都必须实现JDBC定义的接口，确保用户通过JDBC正确的访问数据库。
 
 ### 1.2 JDBC优势
 1. 简单。掌握一套接口就可以实现对任意数据库的访问。
@@ -63,7 +63,7 @@
 2. JDBC Driver API数据库驱动层。负责与数据库建立连接。一般来说，下层的Driver都是由数据库厂商来提供的，负责和实现与自己提供的数据库的通信。
 	
 ### 1.4 JDBC安装
-安装方式有两种：
+&emsp;&emsp;安装方式有两种：
 1. 数据库官网下载。从数据库官网下载JDBC驱动，下载下来的是一个JAR包，然后加入到Java Web项目中。
 2. Maven管理。通过Maven配置JDBC驱动。
 
@@ -77,16 +77,16 @@
 * DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
 
 #### 1.5.2 Connection
-代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
+&emsp;&emsp;代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
 * 常用方法
 ```Java
 Statment stmt = conn.createStatement();
 ```
 
 #### 1.5.3 Statement
-Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。
+&emsp;&emsp;Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。
 
-容器可以承载放入的一些SQL语句：
+&emsp;&emsp;容器可以承载放入的一些SQL语句：
 1. 通过Statement的executeQuery方法可以执行一个数据库查询，得到数据库查询结果的一个集合，集合是以一个ResultSet对象来表示；
 2. 通过Statement对象执行更新、删除语句，这时候调用execute和executeUpdate方法，它返回的是一个int值的对象，它代表的是执行的语句影响了多少条数据库记录。
 * 常用方法
@@ -158,7 +158,7 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 
 ### 1.8 JDBC高级功能
 #### 1.8.1 游标
-&emsp;&emsp;游标提供一种客户端能够部分读取服务器端结果集的功能支持，允许分批读取SQL查询的结果。
+游标提供一种客户端能够部分读取服务器端结果集的功能支持，允许分批读取SQL查询的结果。
 * 如何使用游标
 1. DB_URL中新增一个参数
 <pre>
