@@ -169,6 +169,8 @@ jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?
 &emsp;&emsp;`PreparedStatement`继承自`Statement`接口，可以使用`PreparedStatement`接口来替代`Statement`接口，`PreparedStatement`接口相比`Statement`接口要求程序员在生成`PreparedStatement`的时候就要传入SQL语句，这个SQL语句是一个`参数格式化`的SQL，也就是说，SQL的`WHERE`过滤条件的参数都是通过`?`的形式来表示的，后续是通过`PreparedStatement`的`setString`和`setInt`方法来设置这些参数，然后进行执行。  
 &emsp;&emsp;`PreparedStatement`有个`setFetchSize`接口，这个接口可以实现游标的功能。通过`setFetchSize`，就可以设置客户端JDBC每次从服务器端取回的记录的数量。
 
+[构建实例：JDBC进阶-游标-HelloJDBC_cursor](/src/main/java/com/micro/profession/jdbc/practice/HelloJDBC_cursor.java)
+
 #### 1.8.2 
 
 #### 1.8.3 
