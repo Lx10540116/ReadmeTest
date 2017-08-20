@@ -163,7 +163,7 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
 </pre>
 
-2. 使用`PreparedStatement`接口
+2. 使用`PreparedStatement`接口  
 &emsp;&emsp;PreparedStatement继承自Statement接口，可以使用PreparedStatement接口来替代Statement接口，PreparedStatement接口相比Statement接口要求程序员在生成PreparedStatement的时候就要传入SQL语句，这个SQL语句是一个`参数格式化`的SQL，也就是说，SQL的`WHERE`过滤条件的参数都是通过`?`的形式来表示的，后续是通过PreparedStatement的`setString`和`setInt`方法来设置这些参数，然后进行执行。  
 &emsp;&emsp;PreparedStatement有个`setFetchSize`接口，这个接口可以实现游标的功能。通过`setFetchSize`，就可以设置客户端JDBC每次从服务器端取回的记录的数量。
 
