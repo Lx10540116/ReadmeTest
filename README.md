@@ -124,11 +124,8 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 3. 子名称：由三个部分组成：主机、端口、数据库.
 
 以下是一个JDBC URL（后文例子中称之为`DB_URL`）的示例：
-```Java
-jdbc:mysql://10.164.172.20:3306/cloud_study
-```
 <pre>
-jdbc:mysql://10.164.172.20:3306/cloud_study<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+jdbc:mysql://<a href="#db_url"><strong>10.164.172.20</strong></a>:<a href="#db_url"><strong>3306</strong></a>/<a href="#db_url"><strong>cloud_study</strong></a>
 </pre>
 * 协议：jdbc
 * 子协议：mysql
@@ -163,7 +160,10 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 #### 1.8.1 游标
 游标提供一种客户端能够部分读取服务器端结果集的功能支持，允许分批读取SQL查询的结果。
 * 如何使用游标
-
+1. DB_URL中新增一个参数
+<pre>
+jdbc:mysql://10.164.172.20:3306/cloud_study<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+</pre>
 
 #### 1.8.2 
 
