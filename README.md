@@ -163,6 +163,8 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
 </pre>
 
+	jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+
 #### 1.8.2 
 
 #### 1.8.3 
