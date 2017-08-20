@@ -123,7 +123,7 @@ JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即
 
 以下是一个JDBC URL（后文例子中称之为`DB_URL`）的示例：
 <pre>
-jdbc:mysql://<a href="#db_url"><strong>10.164.172.20</strong></a>:<a href="#db_url"><strong>3306</strong></a>/<a href="#db_url"><strong>cloud_study</strong></a>
+jdbc:mysql://<a href="#db_url" alt="IP"><strong>10.164.172.20</strong></a>:<a href="#db_url" alt="端口"><strong>3306</strong></a>/<a href="#db_url" alt="数据库"><strong>cloud_study</strong></a>
 </pre>
 * 协议：jdbc
 * 子协议：mysql
