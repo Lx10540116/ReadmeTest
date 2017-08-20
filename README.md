@@ -77,16 +77,16 @@
 * DriverManager是Java的管理类，用户通过Class.forName的方式就可以向DriverManager注册一个驱动程序，然后通过DriverManager的getConnection方法就可以调用该驱动程序，建立到后端数据库的物理链接。
 
 #### 1.5.2 Connection
-&emsp;&emsp;代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
-* 常用方法
-```Java
-Statment stmt = conn.createStatement();
-```
+代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
+	* 常用方法
+	```Java
+	Statment stmt = conn.createStatement();
+	```
 
 #### 1.5.3 Statement
-&emsp;&emsp;Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。
+Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。
 
-&emsp;&emsp;容器可以承载放入的一些SQL语句：
+容器可以承载放入的一些SQL语句：
 1. 通过Statement的executeQuery方法可以执行一个数据库查询，得到数据库查询结果的一个集合，集合是以一个ResultSet对象来表示；
 2. 通过Statement对象执行更新、删除语句，这时候调用execute和executeUpdate方法，它返回的是一个int值的对象，它代表的是执行的语句影响了多少条数据库记录。
 * 常用方法
@@ -95,7 +95,7 @@ ResultSet rs = stmt.executeQuery("select userName form user");
 ```
 
 #### 1.5.4 ResultSet
-ResultSet代表了一个SQL的查询结果。关系型数据库的本质是一个二元表，所以ResultSet对象实际也是一个由行和列所组成的二元表。
+&emsp;&emsp;ResultSet代表了一个SQL的查询结果。关系型数据库的本质是一个二元表，所以ResultSet对象实际也是一个由行和列所组成的二元表。
 
 ResultSet对象的内部存在一个指针，用来指向当前的一个行记录，默认该指针指向第一行记录。
 
@@ -114,11 +114,11 @@ ResultSet对象的内部存在一个指针，用来指向当前的一个行记�
 每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
 
 #### 1.5.5 SQLException
-通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
+&emsp;&emsp;通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
 
 ### 1.6 JDBC URL
 #### 1.6.1 介绍
-JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
+&emsp;&emsp;JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
 1. 协议：这是固定和统一的，为jdbc；
 2. 子协议：getConnection方法就是通过URL中子协议部分确定调用对应的驱动程序，来建立到后端数据库的物理链接。以MySQL数据库为例，就是mysql；
 3. 子名称：由三个部分组成：主机、端口、数据库.
