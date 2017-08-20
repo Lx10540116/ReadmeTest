@@ -163,7 +163,7 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
 </pre>
 
-	jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+	jdbc:mysql://<ip>:<port>/<database>`?useCursorFetch=true`
 
 #### 1.8.2 
 
