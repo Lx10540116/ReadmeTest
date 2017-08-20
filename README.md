@@ -154,7 +154,7 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 4. 获取执行结果
 5. 清理环境
 
-[构建实例：JDBC基础-HelloJDBC](/src/main/java/com/micro/profession/jdbc/practive/HelloJDBC.java)
+[构建实例：JDBC基础-HelloJDBC](/src/main/java/com/micro/profession/jdbc/practice/HelloJDBC.java)
 
 ### 1.8 JDBC高级功能
 #### 1.8.1 游标
