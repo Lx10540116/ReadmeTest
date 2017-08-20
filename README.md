@@ -160,7 +160,7 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 * 如何使用游标
 1. DB_URL中新增一个参数
 <pre>
-jdbc:mysql://<ip>:<port>/<database><a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+jdbc:mysql://&lt;ip&gt;:&lt;port&gt;/&lt;database&gt;<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
 </pre>
 
 #### 1.8.2 
