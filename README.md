@@ -42,10 +42,8 @@
 ## 1. JDBC
 
 ### 1.1 JDBC重要意义
-&emsp;&emsp;应用程序通过调用统一接口可以访问任意数据库。JDBC屏蔽了客户端与服务器端交互协议的实现细节，只要能熟练的使用JDBC提供的标准接口，无需关心底层数据库的实现方式。
-
-&emsp;&emsp;对于Java应用程序，JDBC就是一个普通的架包，在应用程序中引用架包提供的类和方法，通过操作Java对象的方式，就可以获取数据库中的数据。
-
+&emsp;&emsp;应用程序通过调用统一接口可以访问任意数据库。JDBC屏蔽了客户端与服务器端交互协议的实现细节，只要能熟练的使用JDBC提供的标准接口，无需关心底层数据库的实现方式。<br>
+&emsp;&emsp;对于Java应用程序，JDBC就是一个普通的架包，在应用程序中引用架包提供的类和方法，通过操作Java对象的方式，就可以获取数据库中的数据。<br>
 &emsp;&emsp;对数据库厂商来说，JDBC就是一套接口规范，每个数据库厂商都必须实现JDBC定义的接口，确保用户通过JDBC正确的访问数据库。
 
 ### 1.2 JDBC优势
@@ -63,7 +61,7 @@
 2. JDBC Driver API数据库驱动层。负责与数据库建立连接。一般来说，下层的Driver都是由数据库厂商来提供的，负责和实现与自己提供的数据库的通信。
 	
 ### 1.4 JDBC安装
-&emsp;&emsp;安装方式有两种：
+安装方式有两种：
 1. 数据库官网下载。从数据库官网下载JDBC驱动，下载下来的是一个JAR包，然后加入到Java Web项目中。
 2. Maven管理。通过Maven配置JDBC驱动。
 
@@ -78,10 +76,10 @@
 
 #### 1.5.2 Connection
 代表Java应用程序对后端数据库的一条物理链接，基于这条链接可以执行一些SQL语句。
-	* 常用方法
-	```Java
-	Statment stmt = conn.createStatement();
-	```
+* 常用方法
+```Java
+Statment stmt = conn.createStatement();
+```
 
 #### 1.5.3 Statement
 Statement对象是一个SQL的容器，容器中可以执行诸如insert、delete、update、select也就是增删改查等操作。
@@ -95,7 +93,7 @@ ResultSet rs = stmt.executeQuery("select userName form user");
 ```
 
 #### 1.5.4 ResultSet
-&emsp;&emsp;ResultSet代表了一个SQL的查询结果。关系型数据库的本质是一个二元表，所以ResultSet对象实际也是一个由行和列所组成的二元表。
+ResultSet代表了一个SQL的查询结果。关系型数据库的本质是一个二元表，所以ResultSet对象实际也是一个由行和列所组成的二元表。
 
 ResultSet对象的内部存在一个指针，用来指向当前的一个行记录，默认该指针指向第一行记录。
 
@@ -114,11 +112,11 @@ ResultSet对象的内部存在一个指针，用来指向当前的一个行记�
 每个方法都有两种方式：获取列名和获取列序号（从0开始排序）。建议采用列名的方式获取结果，因为更加直观。
 
 #### 1.5.5 SQLException
-&emsp;&emsp;通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
+通过SQLException来表示异常。在应用程序的处理过程中，要通过捕获SQLException来进行相应的异常处理。
 
 ### 1.6 JDBC URL
 #### 1.6.1 介绍
-&emsp;&emsp;JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
+JDBC URL是后端数据库的唯一标识符，应用程序通过该标识符即可唯一的确定后端的某个数据库实例。它是由三个部分构成的：
 1. 协议：这是固定和统一的，为jdbc；
 2. 子协议：getConnection方法就是通过URL中子协议部分确定调用对应的驱动程序，来建立到后端数据库的物理链接。以MySQL数据库为例，就是mysql；
 3. 子名称：由三个部分组成：主机、端口、数据库.
