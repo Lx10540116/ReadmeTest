@@ -158,11 +158,11 @@ jdbc:microsoft:sqlserver://<ip>:<port>;DatabaseName=database
 
 ### 1.8 JDBC高级功能
 #### 1.8.1 游标
-游标提供一种客户端能够部分读取服务器端结果集的功能支持，允许分批读取SQL查询的结果。
+&emsp;&emsp;游标提供一种客户端能够部分读取服务器端结果集的功能支持，允许分批读取SQL查询的结果。
 * 如何使用游标
 1. DB_URL中新增一个参数
 <pre>
-jdbc:mysql://10.164.172.20:3306/cloud_study<a href="#db_url"><strong>?useCursorFetch=true</strong></a>
+jdbc:mysql://<ip>:<port>/<database><a href="#db_url"><strong>?useCursorFetch=true</strong></a>
 </pre>
 
 #### 1.8.2 
