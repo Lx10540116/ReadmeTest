@@ -290,6 +290,16 @@ public static void dbpoolInit() {
 }
 ```
 
+2. 获取数据库连接  
+在创建完`BasicDataSource`对象后，应用程序拥有了一个数据库连接池，然后就可以从连接池中获取数据库连接。通过`BasicDataSource`对象提供的`getConnection`方法，可以从连接池中租借一个数据库连接，然后通过这个连接访问后端的数据库。
+
+3. 释放数据库连接  
+使用完毕后，需要将连接归还给连接池供下一个线程使用。同样，调用`Connection`的`close`方法进行释放。
+
+注：使用JDBC时，`Connection`的`close`方法实际上是销毁了连接；这里同样调用了`Connection`的`close`方法，却是将连接归还给了连接池，原因是在DBCP的实现中，将`Connection`的`close`方法进行了重写，将之前的销毁连接的逻辑改为了将数据库连接归还给数据库连接池的逻辑，所以虽然同样是调用`close`方法，但是实现的是不一样的。
+
+[构建实例：数据库连接池-DBPoolTest](/src/main/java/com/micro/profession/jdbc/practice/DBPoolTest.java)
+
 ## 3. SQL注入与防范
 
 
