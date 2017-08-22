@@ -261,7 +261,7 @@ show variables like '%character%';
 &emsp;&emsp;连接池对JDBC连接实行有效的管理。在连接池中，JDBC连接不足时，会自动创建连接；在空闲的连接较多时，也会自动的销毁连接。在由多个线程同时获得数据库连接时，连接池还提供了排队等待的功能，能够保证应用程序有序的获得数据库连接。
 
 #### 2.2.2 使用连接池
-以DBCP连接池为例：  
+&emsp;&emsp;以DBCP连接池为例：  
 &emsp;&emsp;DBCP连接池是Apache的一个开源的Java连接池项目，是Tomcat使用的连接池组件。DBCP连接池包括三个Java架包，分别是：  
 * commons-dbcp.jar
 * commons-pool.jar
