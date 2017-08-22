@@ -272,20 +272,22 @@ DBCP使用`BasicDataSource`对象来表示一个连接池，所以首先要创�
 
 创建BasicDataSource：
 ```Java
-	public static BasicDataSource ds = null;
-	
-	public final static String DRIVER_NAME = "com.mysql.dbc.Driver";
-	public final static String USER_NAME = "root";
-	public final static String PASSWORD = "root";
-	public final static String DB_URL = "jdbc:mysql://localhost/cloud_study";
-	
-	public static void dbpoolInit() {
-		ds = new BasicDataSource();
-		ds.setUrl(DB_URL);
-		ds.setDriverClassName(DRIVER_NAME);
-		ds.setUsername(USER_NAME);
-		ds.setPassword(PASSWORD);
-	}
+public static BasicDataSource ds = null;
+
+public final static String DRIVER_NAME = "com.mysql.dbc.Driver";
+public final static String USER_NAME = "root";
+public final static String PASSWORD = "root";
+public final static String DB_URL = "jdbc:mysql://localhost/cloud_study";
+
+public static void dbpoolInit() {
+	// 创建BasicDataSource对象
+	ds = new BasicDataSource();
+	// 给BasicDataSource对象传入数据库驱动、数据库URL、数据库用户名和密码
+	ds.setUrl(DB_URL);
+	ds.setDriverClassName(DRIVER_NAME);
+	ds.setUsername(USER_NAME);
+	ds.setPassword(PASSWORD);
+}
 ```
 
 ## 3. SQL注入与防范
