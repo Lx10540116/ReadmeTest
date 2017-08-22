@@ -329,7 +329,8 @@ BasicDataSource参数：
 BasicDataSource定期检查参数：
 * .setTestWhileIdle(True)
 * .setMinEvictableIdleTimeMillis()
-* .setTimeBetweenEvictionRunsMills()  
+* .setTimeBetweenEvictionRunsMills()
+
 &emsp;&emsp;为了实现定期检查的功能，数据库服务端为了释放空闲等待的资源，默认会自动关闭空闲时间超过一定阈值的数据库连接。以MySQL数据库为例：  
 MySQL数据库默认的服务器端会自动关闭空闲时间超过8小时的数据库连接。服务器端关闭连接以后，客户端的连接池却不知道连接已经被服务器端关闭，当应用程序的线程向连接池租借连接的时候，连接池有可能将这个失效的数据库连接租借给应用程序。当线程使用该连接的时候就会抛出一个`SQLException`的异常。  
 &emsp;&emsp;为了避免上述情况的发生，尽量保证连接池中的连接都是有效的，可以定期的对连接池中的连接的空闲时间进行一个检查，在服务器端关闭连接之前，就保证把这个连接销毁掉，重新补充新的连接，来保证应用程序从连接池中租借的连接都是有效的。`TestWhileIdle`参数可以开启该功能。`MinEvictableIdleTimeMillis`来表示销毁连接的最小空闲时间，也就是说，只有当空闲时间超过该值的时候，会被连接池自动的销毁。`TimeBetweenEvictionRunsMills`表示检查运行时间的间隔。
