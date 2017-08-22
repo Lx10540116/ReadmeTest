@@ -325,7 +325,7 @@ BasicDataSource参数：
 5. setMinIdle  
 如果连接池的空闲连接低于`MinIdle`设定的值后，连接池也会自动的触发去创建数据库连接，来保证连接池有足够的连接可以被租借。一般来说，为了避免连接池频繁的创建和销毁数据库连接，建议将`MinIdle`和`MaxIdle`设定为一样的值。
 
-* DBCP定期检查
+* DBCP定期检查  
 BasicDataSource定期检查参数：
 * .setTestWhileIdle(True)
 * .setMinEvictableIdleTimeMillis()
