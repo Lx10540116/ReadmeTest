@@ -259,13 +259,13 @@ show variables like '%character%';
 
 #### 2.2.2 使用连接池
 以DBCP连接池为例：  
-DBCP连接池是Apache的一个开源的Java连接池项目，是Tomcat使用的连接池组件。DBCP连接池包括三个Java架包，分别是：  
+&emsp;&emsp;DBCP连接池是Apache的一个开源的Java连接池项目，是Tomcat使用的连接池组件。DBCP连接池包括三个Java架包，分别是：  
 * commons-dbcp.jar
 * commons-pool.jar
 * commons-logging.jar
 
 1. 创建连接池对象  
-DBCP使用`BasicDataSource`对象来表示一个连接池，所以首先要创建一个`BasicDataSource`对象。因为连接池只是JDBC连接的一个管理单位，它的底层数据库访问依然是通过JDBC来实现的，所以必须告诉DBCP必要的信息才能让DBCP帮助我们自动的创建连接。这些信息与我们创建一个JDBC连接是一致的，首先要包括一个`DB_URL`、数据库的名称、数据库的用户名和密码。
+&emsp;&emsp;DBCP使用`BasicDataSource`对象来表示一个连接池，所以首先要创建一个`BasicDataSource`对象。因为连接池只是JDBC连接的一个管理单位，它的底层数据库访问依然是通过JDBC来实现的，所以必须告诉DBCP必要的信息才能让DBCP帮助我们自动的创建连接。这些信息与我们创建一个JDBC连接是一致的，首先要包括一个`DB_URL`、数据库的名称、数据库的用户名和密码。
 <p align="center">
 <img src="/img/JDBC/连接池BasicDataSource.png" alt="连接池BasicDataSource">
 </p>
