@@ -280,13 +280,13 @@ public final static String PASSWORD = "root";
 public final static String DB_URL = "jdbc:mysql://localhost/cloud_study";
 
 public static void dbpoolInit() {
-  // 创建BasicDataSource对象
-  ds = new BasicDataSource();
-  // 给BasicDataSource对象传入数据库驱动、数据库URL、数据库用户名和密码
-  ds.setUrl(DB_URL);
-  ds.setDriverClassName(DRIVER_NAME);
-  ds.setUsername(USER_NAME);
-  ds.setPassword(PASSWORD);
+    // 创建BasicDataSource对象
+    ds = new BasicDataSource();
+    // 给BasicDataSource对象传入数据库驱动、数据库URL、数据库用户名和密码
+    ds.setUrl(DB_URL);
+    ds.setDriverClassName(DRIVER_NAME);
+    ds.setUsername(USER_NAME);
+    ds.setPassword(PASSWORD);
 }
 ```
 
