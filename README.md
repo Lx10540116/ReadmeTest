@@ -305,11 +305,37 @@ public static void dbpoolInit() {
 
 #### 2.2.3 高级配置
 在实际开发过程中，会去设置一些数据库连接的参数来帮助我们优化连接池，提高数据库访问的性能。  
+BasicDataSource参数：
+* .setInitialSize()
+* .setMaxTotal()
+* .setMaxWaitMillis()
+* .setMaxIdle()
+* .setMinIdle()
+
 1. setInitialSize  
 &emsp;&emsp;当我们的应用第一次访问数据库的时候，往往会出现很慢的情况，这是因为连接池中没有数据库连接，需要去创建连接，这个过程是需要花费大量时间的。当连接创建完成后，后续的访问就不再需要重新创建连接，所以速度就变得很快了。  
 &emsp;&emsp;如何提高第一次访问数据库的速度呢？  
 &emsp;&emsp;可以在应用程序启动的时候，就向连接池中预置一定数量的数据库连接，来保证应用程序第一次访问的时候连接池中就有一定数量的连接。这样一来，第一次访问就不会变得很慢。可以通过`InitialSize`参数来设置连接池创建时预置的连接数，一般设置为`预期业务平均访问量`是比较合适的。
-2. setMaxTotal
+2. setMaxTotal  
+&emsp;&emsp;当连接池没有空闲的连接，又有线程需要去访问数据库的时候，此时连接池会去创建一个新的数据库连接。但是如果此时的连接数已经达到了`MaxTotal`设定的最大值，则连接池就不会为线程新建一个数据库连接，而是强制该线程进入一个等待队列进行等待，直到有其他线程归还数据库连接时再分配。`MaxTotal`实际是去设置了客户端的一个最大连接数，起到一个限流保护数据库的作用。
+3.setMaxWaitMillis  
+进入队列的线程不可能无限制的等待，可以通过设置一个叫做`MaxWaitMillis`的参数来设置一个最大的等待时间。如果超过该时间，则应用程序会得到一个`SQLException`异常。
+4. setMaxIdle  
+当应用程序的线程使用完连接后，将连接归还给连接池。如果此时的连接池空闲连接数超过了`MaxIdle`设置的值后，则连接池会自动的销毁这个数据库连接。这样做的目的就是可以减少后端数据库的连接数来减少不必要的资源损耗。
+5. setMinIdle  
+如果连接池的空闲连接低于`MinIdle`设定的值后，连接池也会自动的触发去创建数据库连接，来保证连接池有足够的连接可以被租借。一般来说，为了避免连接池频繁的创建和销毁数据库连接，建议将`MinIdle`和`MaxIdle`设定为一样的值。
+
+* DBCP定期检查
+BasicDataSource定期检查参数：
+* .setTestWhileIdle(True)
+* .setMinEvictableIdleTimeMillis()
+* .setTimeBetweenEvictionRunsMills()  
+&emsp;&emsp;为了实现定期检查的功能，数据库服务端为了释放空闲等待的资源，默认会自动关闭空闲时间超过一定阈值的数据库连接。以MySQL数据库为例：  
+MySQL数据库默认的服务器端会自动关闭空闲时间超过8小时的数据库连接。服务器端关闭连接以后，客户端的连接池却不知道连接已经被服务器端关闭，当应用程序的线程向连接池租借连接的时候，连接池有可能将这个失效的数据库连接租借给应用程序。当线程使用该连接的时候就会抛出一个`SQLException`的异常。  
+&emsp;&emsp;为了避免上述情况的发生，尽量保证连接池中的连接都是有效的，可以定期的对连接池中的连接的空闲时间进行一个检查，在服务器端关闭连接之前，就保证把这个连接销毁掉，重新补充新的连接，来保证应用程序从连接池中租借的连接都是有效的。`TestWhileIdle`参数可以开启该功能。`MinEvictableIdleTimeMillis`来表示销毁连接的最小空闲时间，也就是说，只有当空闲时间超过该值的时候，会被连接池自动的销毁。`TimeBetweenEvictionRunsMills`表示检查运行时间的间隔。
+注：建议将`MinEvictableIdleTimeMillis`的值一定要小于服务器端自动关闭连接的阈值时间，也就是说一定要小于8小时，这样才能有效的检测空闲时间超过该值的一个空闲连接，然后去主动的关闭它，补充新的连接。
+
+[构建实例：数据库连接池-DBPoolDbcpImpl](/src/main/java/com/micro/profession/jdbc/practice/DBPoolDbcpImpl.java)
 
 ## 3. SQL注入与防范
 

@@ -33,15 +33,12 @@ public class DBPoolTest {
 			conn = ds.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select userName from user");
-			//4. 获取执行结果
 			while(rs.next()) {
 				System.out.println("hello " + rs.getString("userName"));
 			}
 		} catch (SQLException e) {
-			// 异常处理
 			e.printStackTrace();
 		} finally {
-			//5. 清理环境
 			try {
 				if(conn != null) conn.close();
 				if(stmt != null) stmt.close();
