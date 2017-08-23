@@ -341,7 +341,22 @@ MySQL数据库默认的服务器端会自动关闭空闲时间超过8小时的�
 [构建实例：数据库连接池-DBPoolDbcpImpl](/src/main/java/com/micro/profession/jdbc/practice/DBPoolDbcpImpl.java)
 
 ## 3. SQL注入与防范
-
+### 3.1 数据库注入
+在Web应用架构下，用户无法直接访问数据库，必须发送HTTP请求到Java应用服务器，然后由Java应用服务器来访问后端的数据库，所以恶意用户想要获取数据库中的核心价值数据就绕不开Java应用程序，唯一的途径就是利用业务程序的一个漏洞伪装自己的请求，欺骗业务程序，达到最终获取到数据库数据的目的。  
+以下为根据之前JDBC内容所编写的根据用户名和密码获取用户信息的一段应用程序：
+```Java
+User user = null;
+String sql = "select * from user where userName = '" + userName 
+			+ "' and password = '" + password + "'";
+rs = stmt.executeQuery(sql);
+while (rs.next()) {
+	user = new User();
+	user.setUserName(rs.getString("userName"));
+	user.setCardNum(rs.getString("cardNum"));
+}
+return user;
+```
+在这段程序中，程序会根据用户名和密码去查询后端数据库的User表，看是否有跟用户名和密码匹配的用户，如果数据库返回的记录不为空，这个应用程序也就会返回一个不为空的User对象，将用户的信息返回给调用者。
 
 ## 4. 事务
 
