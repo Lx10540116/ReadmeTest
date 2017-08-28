@@ -391,11 +391,9 @@ select * from user where userName = 'ZhangSan';--' and password = '123456';
 ```mysql
 Select * from user where userName = ? AND password = ?
 ```
-<pre>
-Select * from user where userName = <a href="#db_url"><strong>?</strong></a> AND password = <a href="#db_url"><strong>?</strong></a>
-</pre>
 调用`Connection`的`preparedStatement`方法传入一个格式化的SQL，格式化SQL与平时写的SQL不同的地方在于：所有外部需要输入的参数都使用一个`?`来代替，这样就生成了一个`preparedStatement`对象，SQL语义伴随着对象也就确定了。这里的`?`号替代了参数，实现了一个占位符的功能。这条语句（`preparedStatement`函数）确定了SQL的语义。  
-
+然后开始向SQL传入参数：按照格式化SQL注入参数从做到右的顺序，根据参数的类型，如果是整形的话，用`setInt`；字符型的话，用`setString`；如果是布尔类型的话，用`setBoolean`。参数有两个，第一个是序号，也就是参数从左到右的出现顺序，在上述所说的SQL中，userName在前，password在后，所以userName是1，password是2。第二个参数就是要输入的值了，比如UserName的值为`ZhangSan`，那么就写成`setString(1,'ZhangSan')`,
+同理password写成`setString(2,'123456')`。这样完成后，SQL里传入了参数，并且这个参数能保证不改变SQL语义，就可以防止SQL的注入了。`preparedStatement`是最基础也是最常用的预防SQL注入的方法。
 
 ## 4. 事务
 
