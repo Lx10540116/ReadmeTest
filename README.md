@@ -417,6 +417,10 @@ Select * from user where userName = ? AND password = ?
 <img src="/img/JDBC/后端异常.png" alt="后端异常">
 </p>
 
+* 机密信息禁止明文存储
+	* 涉密信息需要加密处理
+	* mysql可以使用AES_ENCRYPT/AES_DECRYPT加密和解密
+
 ## 4. 事务
 
 
