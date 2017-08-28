@@ -380,9 +380,21 @@ select * from user where userName = 'ZhangSan';--' and password = '123456';
 ```
 原先设计的SQL语句是包括UserName和password这两个检索条件的，但是实际上Java应用程序发送给后端数据库的SQL语句，已经不再是原先设计的场景的SQL语句的语义。实际上，由于用户名中的分号，导致原先的一条SQL语句变成了两条SQL语句，并且在第一条语句中去掉了SQL的检索条件。同时，SQL语句的后半部分，第二条SQL语句，因为两个`-`的注释符导致被数据库认为是注释的内容，自动被忽略掉了。最终，数据库检索的仅仅是用户名为`ZhangSan`的数据库记录，不再附有密码的检索条件，利用Java应用程序动态拼接SQL的漏洞，破坏了原先Java程序设定的SQL语义，欺骗了业务服务器，恶意获取了数据库中的数据。这样，他也获得了User对象，返回给了数据库，但是检索条件只是userName，并没有对password进行检索，这就导致了应用程序出现了漏洞，他在不知道密码的情况下也可以实现合法用户的认证登录。
 
-SQL注入就是用户输入表单或者URL参数中输入SQL命令达到欺骗Java应用程序的目的，破坏原有SQL的语义，发送恶意的SQL语句到数据库，导致数据库信息遭到泄露的一个Java应用程序的漏洞。
+`SQL注入`就是用户输入表单或者URL参数中输入SQL命令达到欺骗Java应用程序的目的，破坏原有SQL的语义，发送恶意的SQL语句到数据库，导致数据库信息遭到泄露的一个Java应用程序的漏洞。
 
 ### 3.2 问题根源
+`SQL注入`漏洞的根源在于SQL语句本身是动态拼接而成的，在用户注入参数前，SQL本身的语义是不确定的，用户输入的参数如果带有SQL命令或者特殊字符，可能会导致原有的SQL的语义发生改变，原先设定SQL的语义是根据用户名密码作为WHERE的两个过滤条件，而实际执行的时候SQL语义只检索了用户名，密码被注释掉了。
+
+### 3.3 解决方案
+参数化SQL的实现方式：首先，确定SQL的语义；随后，传入SQL的参数，能够保证SQL传入的参数不改变原先SQL的语义。这里的实现方式是利用`Connection`的`.preparedStatement`方法来创建一个`preparedStatement`对象来实现的。
+`preparedStatement`对象实现了`Statement`接口定义的所有方法，但是相对于`Statement`，它最大的优势在于提供了参数化SQL的实现方式。
+```mysql
+Select * from user where userName = ? AND password = ?
+```
+<pre>
+Select * from user where userName = <a href="#db_url"><strong>?</strong></a> AND password = <a href="#db_url"><strong>?</strong></a>
+</pre>
+调用`Connection`的`preparedStatement`方法传入一个格式化的SQL，格式化SQL与平时写的SQL不同的地方在于：所有外部需要输入的参数都使用一个`?`来代替，这样就生成了一个`preparedStatement`对象，SQL语义伴随着对象也就确定了。这里的`?`号替代了参数，实现了一个占位符的功能。这条语句（`preparedStatement`函数）确定了SQL的语义。  
 
 
 ## 4. 事务
