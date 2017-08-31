@@ -518,7 +518,11 @@ T1读取了所有的用户，包含张三和李四两个用户，但此时T2又�
 不允许出现幻读，但作为事务最高隔离级别，并发控制最为严格，所有的事务都是串行执行的，会导致数据库的性能变得极差。
 
 > MySQL默认事务级别为repeatable read。
-> 事务隔离级别越高，数据库性能越差。
+
+> 事务隔离级别越高，数据库性能越差，编程的难度越低。
+
+## 4.7 设置隔离级别
+JDBC中，可以通过`Connection`的`getTransactionIsolation`和`setTransactionIsolation`来获得和设置事务的隔离级别。
 
 ## 5. MyBatis
 
