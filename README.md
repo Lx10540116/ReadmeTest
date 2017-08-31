@@ -425,12 +425,12 @@ Select * from user where userName = ? AND password = ?
 ### 4.1 事务特性
 事务特性以银行转账为例:  
 业务逻辑为：开始交易->张三账户扣除100元->李四账户增加100元->结束交易
-#### 4.1.1 原子性  
+#### 4.1.1 原子性
 张三扣除100元和李四增加100元，这两个过程必须作为一个整体来完成，要么全部执行，要么一个都不执行，不可分割。  
 	整个交易必须是一个整体，要么全做，要不都不做！
-#### 4.1.2 一致性  
+#### 4.1.2 一致性
 在整个交易中，交易前和交易后，钱的总量是不变的。交易前张三有100元，李四0元，交易后张三把钱给了李四，张三0元，李四100元。整个交易前后钱都是一致的状态，称之为一致性。
-#### 4.1.3 隔离性  
+#### 4.1.3 隔离性
 在张三和李四交易的同时，此时赵五需要给张三转账200元。假设两个交易在并发的执行：
 <p align="center">
 <img src="/img/JDBC/隔离性.png" alt="隔离性">
@@ -460,6 +460,17 @@ Select * from user where userName = ? AND password = ?
 开启事务模式之后，Connection对象后续执行的所有SQL都将会作为一个事务来执行，直到调用Connection的commit方法。commit方法表示这个事务被提交，也就是说事务结束，整个事务执行的SQL语句的结果都将生效。
 * rollback() 回滚事务  
 如果当事务执行的过程中出现问题，需要回滚这个事务的时候，可以调用Connection对象的rollback方法。回滚的意思就是虽然执行了事务中的语句，但是可以回滚到事务开始之前的一个状态。
+
+[构建实例：事务-未使用事务-TransactionTestInit](/src/main/java/com/micro/profession/jdbc/practice/Transaction/TransactionTestInit.java)
+
+[构建实例：事务-使用事务-TransactionTest](/src/main/java/com/micro/profession/jdbc/practice/Transaction/TransactionTest.java)
+
+### 4.4 检查点
+JDBC提供了断点处理和控制的功能。
+* setSavePoint() 保存断点
+* rollback(SavePoint savePoint) 回滚到断点
+
+[构建实例：事务-回滚断点-TransactionTestSavePoint](/src/main/java/com/micro/profession/jdbc/practice/Transaction/TransactionTestSavePoint.java)
 
 ## 5. MyBatis
 
