@@ -445,7 +445,21 @@ Select * from user where userName = ? AND password = ?
 
 ### 4.2 什么是事务？
 `事务（Transaction）`是并发控制的基本单位，指作为单个逻辑工作单元执行的一系列操作，而这些逻辑工作单元需要满足`ACID`特性。  
+* 原子性：atomicity
+* 一致性：consistency
+* 隔离性：isolation
+* 持久性：durability  
+如果一个业务场景，有这四个特性的需求，就可以使用事务来实现。
 
+### 4.3 JDBC事务控制
+如何实现事务控制？JDBC的`Connection`对象提供了三个方法可以帮助实现 一个事务逻辑：
+* setAutoCommit() 开启事务  
+将这个方法设为false，则这个Connection对象后续所有的执行的SQL语句都会被当做JDBC的一个事务来执行。如果设置为true，则表示Connection对象后续的每一个SQL都作为一个单独的语句执行，都是以非事务的方式来执行的。  
+	注：默认情况下，都是以非事务的方式执行的，除非开始事务，将setAutoCommit设置为false。
+* commit() 提交事务 
+开启事务模式之后，Connection对象后续执行的所有SQL都将会作为一个事务来执行，直到调用Connection的commit方法。commit方法表示这个事务被提交，也就是说事务结束，整个事务执行的SQL语句的结果都将生效。
+* rollback() 回滚事务  
+如果当事务执行的过程中出现问题，需要回滚这个事务的时候，可以调用Connection对象的rollback方法。回滚的意思就是虽然执行了事务中的语句，但是可以回滚到事务开始之前的一个状态。
 
 ## 5. MyBatis
 
