@@ -651,4 +651,76 @@ show engine innodb status
 执行完这个命令后，会有一大段命令出现。其中有一个部分是包括死锁的，里面会列出发生死锁时，所等待的两个SQL语句，然后也会列出系统强制回滚的是哪个事务。知道了这些SQL语句，可以分析SQL语句的加锁方式，来调整SQL语句的顺序，或者改变SQL语句来保证按序获取锁资源，这样就可以有效避免死锁的产生。
 
 ## 5. MyBatis
+### 5.1 前言
+#### 5.1.1面向对象的世界与关系数据库的鸿沟
+* 面向对象的世界中数据是对象。
+* 关系型数据库中数据是以行、列的二元表。
 
+#### 5.1.2 ORM
+1. 介绍
+* ORM(Object/Relation Mapping)
+* 持久化类与数据库表之间的映射关系
+* 对持久化对象的操作自动转换成对关系数据库操作
+
+2. 关系型数据库和对象的映射
+<p align="center">
+<img src="/img/JDBC/关系数据库和对象的映射.png" alt="关系数据库和对象的映射">
+</p>
+
+* 关系数据库的每一行映射为每一个对象
+* 关系数据库的每一列映射为对象的每个属性
+
+### 5.2 MyBatis
+#### 5.2.1 介绍
+* 项目前身是Apache基金会表的一个开源项目iBatis
+* 支持自定义SQL、存储过程和高级映射的持久化框架
+* 使用XML或者注解配置
+* 能够映射基本数据元素、接口、Java对象到数据库
+
+#### 5.2.2 功能架构
+<p align="center">
+<img src="/img/JDBC/MyBatis功能架构.png" alt="MyBatis功能架构">
+</p>
+
+从Mybatis的功能架构来看，主要分为三大层：  
+* 第一层为API的接口层。主要是提供给外部使用接口的API，主要是提供给程序开发人员。开发人员通过本地API来操作数据库，接口层接到调用请求后，将数请求给数据处理层，来完成具体的数据处理。
+* 第二层为数据处理层。它负责具体的SQL的查找、SQL解析、SQL执行和执行结果的映射处理，它的主要目的是根据调用请求来完成一次数据库的操作。
+* 第三层为基础支撑层。主要负责最基础的功能支撑，包括数据库连接管理、事务管理、配置加载、缓存处理。将它们抽象出来作为最基础的组件，为上层的数据处理层提供基础的支撑。
+
+#### 5.2.3 工作流机制
+<p align="center">
+<img src="/img/JDBC/MyBatis工作流机制.png" alt="MyBatis工作流机制">
+</p>
+
+* 根据XML或者注解加载SQL语句、参数映射、结果映射到内存
+* 应用程序调用API传入参数和SQL ID
+* MyBatis自动生成SQL语句完成数据库访问，转换执行结果返回应用程序
+
+首先，需要在应用程序启动的时候，加载XML文件，这个XML文件定义了后端数据库的地址，同时也定义了SQL和Java之间的映射关系；  
+然后，应用程序调用MyBatis提供的API接口，传入参数和SQL ID，MyBatis会自动的匹配相应的SQL语句，然后生成完整的SQL语句，访问后端的数据库，转换执行的结果为Java对象，最后返回给应用程序。
+
+#### 5.2.4 环境搭建
+1. 下载架包
+* JAR：
+	* mybatis-3.2.3.jar
+	* mysql-connector-java-5.1.12.jar
+
+2. 配置
+每个MyBatis应用都是基于`SqlSessionFactory`的实例，以它为中心。通过`SqlSessionFactory`实例可以获取能够将对象操作转换成数据库SQL的`Session`，通过一个XML配置文件可以完成一个`SqlSessionFactory`的配置。  
+```java
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="jdbc" />
+			<!-- 配置数据库连接信息 -->
+			<dataSource type="POOLED">
+				<property name="river" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost/cloud_study" />
+				<property name="username" value="root" />
+				<property name="password" value="123456" />
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>
+```
+整个XML配置文件包含了MyBatis系统的核心配置，包含
