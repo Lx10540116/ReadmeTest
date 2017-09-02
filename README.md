@@ -707,7 +707,7 @@ show engine innodb status
 
 2. 配置
 每个MyBatis应用都是基于`SqlSessionFactory`的实例，以它为中心。通过`SqlSessionFactory`实例可以获取能够将对象操作转换成数据库SQL的`Session`，通过一个XML配置文件可以完成一个`SqlSessionFactory`的配置。  
-```java
+```xml
 <configuration>
 	<environments default="development">
 		<environment id="development">
