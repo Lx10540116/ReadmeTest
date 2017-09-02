@@ -723,4 +723,71 @@ show engine innodb status
 	</environments>
 </configuration>
 ```
-整个XML配置文件包含了MyBatis系统的核心配置，包含
+整个XML配置文件包含了MyBatis系统的核心配置，包括后端数据库连接实例的数据源和决定事务范围和控制方式的事务管理器——`transactionManager`。  
+首先就是事务管理器的设置。在`transactionManager`下有`type`属性，提供了两个选项，分别是`jdbc`和`manage`。
+* `jdbc`表示事务控制直接使用的是jdcb的提交和回滚来设置的，它表示MyBatis依赖于数据库源获得的数据库连接来管理事务的范围，实际上是依赖jdbc来实现事务控制的。
+* `manage`表示MyBatis的事务提交和回滚是本身MyBatis框架不做任何事情，也不会去调用jdbc的事务提交和回滚，事务的控制是交给外部的容器，比如spring的方式来完成。
+
+第二个要配置的是后端的数据库源。与jdbc一样，它包括四个属性，分别是：数据库驱动、url、用户名和密码。这里要求将`transactionManager`的`type`改为`jdbc`，因为直接使用MyBatis来完成数据库的访问。第二个在数据源方面，需要将数据库驱动、url、用户名和密码配置正确。
+
+3. Java对象
+* 构造对象
+* 构建接口
+
+MyBatis是一个ORM框架，所以要定义一些Java对象，然后建立对象对对象操作和SQL语句之间的映射关系。定义Java对象包括一些属性，这里以User也就是用户对象为例：
+```java
+public class User {
+	private int id;
+	private String userName;
+	private String corp;
+
+	public User(Integer id, String userName, String corp) {
+		this.id = id;
+		this.userName = userName;
+		this.corp = corp;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	……
+}
+```
+首先定义User对象，包括一些属性，比如用户ID、用户名和用户所在公司等三个属性，get和set方法，还有类的构造函数。  
+有了Java对象后，还需要定义对这个Java对象的操作，因为MyBatis与其他传统的ORM框架是不同的，不是直接建立对象和关系数据库表数据之间的映射，而是采取更加灵活的方式，将对对象的操作与数据库的SQL语句建立映射关系。所以需要定义一些对数据的操作，这里使用Java的interface接口的方式来定义对对象的操作。
+```java
+public interface GetUserInfo {
+
+	public User getUser(int id);		// 获取用户
+
+	public void addUser(User user);		// 新增用户
+
+	public void updateUser(User user);	// 修改用户
+
+	public void deleteUser(User user);	// 删除用户
+}
+```
+
+4. 创建Java对象和SQL语句映射关系配置文件
+* 映射文件
+```xml
+<mapper namespace="com.micro.profession.mybatis.GetUserInfo">
+	<!-- 在select标签中编写查询的SQL语句，设置select标签的id属性为getUser,
+		parameterType定义为int,
+		resultType="MyBatisTest.User"就表示将查询结果封装成一个User类 -->
+	<!-- 根据id查询得到一个User对象 -->
+	<select id="getUser" parameterType="int"
+		resultType="com.micro.profession.mybatis.User">
+		select id, userName, corp form user where id=#{id}
+	</select>
+</mapper>
+```
+配置文件中最重要的是要包含一个`mapper`的标签，标签有一个`namespace`属性，它的值使用的是定义接口的操作类——接口名称为`GetUserInfo`的类名加上包名来完成`namespace`属性的定义。  
+接下来定义具体的SQL语句：要完成的是获取数据库的信息，检索数据库获得User信息，然后映射到Java的对象中，所以这里`select`标签的`id`就定义为`getUser`，然后`parameterType`定义为`int`，因为要传入检索哪个用户。然后`resultType`定义为之前定义的User类，因为希望MyBatis把返回的结果自动的转化前面定义的Java对象，注意这里要加完整的类型，并且要求类型与Java属性名必须是相同的。
+
+5. 注册配置文件
