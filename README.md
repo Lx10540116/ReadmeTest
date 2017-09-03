@@ -705,7 +705,7 @@ show engine innodb status
 	* mybatis-3.2.3.jar
 	* mysql-connector-java-5.1.12.jar
 
-2. 配置
+2. 配置  
 每个MyBatis应用都是基于`SqlSessionFactory`的实例，以它为中心。通过`SqlSessionFactory`实例可以获取能够将对象操作转换成数据库SQL的`Session`，通过一个XML配置文件可以完成一个`SqlSessionFactory`的配置。  
 ```xml
 <configuration>
@@ -777,8 +777,7 @@ public interface GetUserInfo {
 * 映射文件
 ```xml
 <mapper namespace="com.micro.profession.mybatis.GetUserInfo">
-	<!-- 在select标签中编写查询的SQL语句，设置select标签的id属性为getUser,
-		parameterType定义为int,
+	<!-- 在select标签中编写查询的SQL语句，设置select标签的id属性为getUser，parameterType定义为int,
 		resultType="MyBatisTest.User"就表示将查询结果封装成一个User类 -->
 	<!-- 根据id查询得到一个User对象 -->
 	<select id="getUser" parameterType="int"
@@ -790,4 +789,82 @@ public interface GetUserInfo {
 配置文件中最重要的是要包含一个`mapper`的标签，标签有一个`namespace`属性，它的值使用的是定义接口的操作类——接口名称为`GetUserInfo`的类名加上包名来完成`namespace`属性的定义。  
 接下来定义具体的SQL语句：要完成的是获取数据库的信息，检索数据库获得User信息，然后映射到Java的对象中，所以这里`select`标签的`id`就定义为`getUser`，然后`parameterType`定义为`int`，因为要传入检索哪个用户。然后`resultType`定义为之前定义的User类，因为希望MyBatis把返回的结果自动的转化前面定义的Java对象，注意这里要加完整的类型，并且要求类型与Java属性名必须是相同的。
 
-5. 注册配置文件
+5. 注册配置文件  
+```xml
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="jdbc" />
+			<!-- 配置数据库连接信息 -->
+			<dataSource type="POOLED">
+				<property name="river" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost/cloud_study" />
+				<property name="username" value="root" />
+				<property name="password" value="123456" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/micro/profession/mybatis/userMapper.xml">
+	</mappers>
+</configuration>
+```
+需要将映射文件加载到之前配置的`SqlSessionFactory`配置文件中，所以在`SqlSessionFactory`配置中添加一个`mapper`的标签，然后将这个映射文件的完整目录地址放在`resource`属性中，这样就完成了完整的MyBatis的配置。
+
+6. 完成数据库查询  
+<p align="center">
+<img src="/img/JDBC/完成数据库查询.png" alt="完成数据库查询">
+</p>
+
+#### 5.2.5 MyBatis优势与劣势
+* 优势
+	* 入门门槛较低
+	* 更加灵活，SQL优化
+* 劣势
+	* 需要自己编写SQL，工作量打
+	* 数据库移植性差
+
+##### 5.2.6 ResultMap
+* ResultMap元素是MyBatis中最重要最强大的元素
+* 数据库永远不是你想要的或需要它们是怎么样的
+* ResultMap可以实现复杂查询结果到复杂对象关联关系的转化
+
+1. Constructor
+* 类在实例化时，用来注入结果到构造方法中：
+	* idArg - ID参数；标记结果作为ID可以帮助提高整体效能
+	* arg - 注入到构造方法的一个普通结果
+
+2. Collection
+* 实现一对多的关联
+	* id - 一个ID结果；标记结果作为ID可以帮助提高整体效能
+	* result - 注入到字段或JavaBean属性的普通结果
+
+#### 5.2.7 DataSource
+* MyBatis 3.0 内置连接池
+* dataSource type = POOLED启用连接池
+
+#### 5.2.8 数据库连接生命周期
+<p align="center">
+<img src="/img/JDBC/数据库连接生命周期.png" alt="数据库连接生命周期">
+</p>
+
+#### 5.2.9 连接池常用配置选项
+* poolMaximumActiveConnections
+	* 数据库最大活跃连接数
+	* 考虑到随着连接数的增加，性能可能达到拐点，不建议设置过大
+* poolMaximumIdleConnections
+	* 最大空闲连接数
+	* 经验值建议设置与`poolMaximum`相同即可
+* poolMaxmumCheckoutTime
+	* 获取连接时如果没有`idleConnections`同时`activeConnections`达到最大值，则从`activeConnections`列表第一个连接开始，检查是否超过`poolMaxmumCheckoutTime`，如果超过，则强制使其失效，返回该连接
+	* 由于SQL执行时间受服务器配置、表结构不同，建议设置为预期最大SQL执行时间
+* poolTimeToWait
+	* 获取服务器端数据库连接的超时时间，如果超过该时间，则打印日志，同时重新获取
+	* 建议使用默认值20s
+* poolPingEnabled
+	* 启用连接侦测，检查连接池中的连接是否为有效连接
+	* 默认关闭，建议启用，防止服务器端异常关闭，导致客户端错误
+* poolPingQuery
+	* 侦测SQL，建议使用select1，开销小
+* poolPingConnectionsNotUsedFor
+	* 侦测时间，建议小于服务器端超时时间，MySQL默认超时8小时
