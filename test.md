@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th>hello</th>
+      <th>world</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>test</td>
+      <td>test</td>
+    </tr>
+  </tbody>
+</table>
